@@ -1,0 +1,14 @@
+Done. Now run:
+
+  cd front_react
+  npm install
+  npm run dev
+
+
+  create the project:
+  sh: npm create vite@4.1.0
+
+  sh: cd project_name
+  sh: npm i     // for install
+  sh: npm run dev
+
