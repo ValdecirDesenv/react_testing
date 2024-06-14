@@ -11,7 +11,9 @@ const BtnState = ({ children, onClick, color = "primary" }: Props) => {
   const [state, setState] = useState(false);
   const handleClick = () => {
     setState(!state); // Toggle state
+    onClick(); // Call the onClick prop
   };
+
   return (
     <button className={"btn btn-" + color} onClick={handleClick}>
       {children}
