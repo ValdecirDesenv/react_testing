@@ -1,11 +1,18 @@
 import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
 import BtnState from "./components/BtnState";
+import { useState } from "react";
+
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
 
   const handleSelectedItem = (item: string) => {
     console.log(`Selected item: ${item}`);
+  };
+
+  const [stAlert, setStAlert] = useState(false);
+  const toggleAlert = () => {
+    setStAlert(!stAlert);
   };
 
   return (
@@ -18,12 +25,14 @@ function App() {
         />
       </div>
       <div>
-        <Alert>
-          This is a primary alert—check it out! <span> All good !</span>
-        </Alert>
+        {stAlert && (
+          <Alert onClose={() => setStAlert(false)}>
+            This is a primary alert—check it out! <span> All good !</span>
+          </Alert>
+        )}
       </div>
       <>
-        <BtnState color="secondary" onClick={() => console.log("Cliked")}>
+        <BtnState color="secondary" onClick={toggleAlert}>
           Hey Btn
         </BtnState>
       </>
