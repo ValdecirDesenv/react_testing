@@ -2,6 +2,7 @@ import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
 import BtnState from "./components/BtnState";
 import { useState } from "react";
+import CountEvent from "./components/countEvent";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -35,6 +36,9 @@ function App() {
         <BtnState color="secondary" onClick={toggleAlert}>
           Hey Btn
         </BtnState>
+      </>
+      <>
+        <CountEvent />
       </>
     </>
   );
