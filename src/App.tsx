@@ -1,11 +1,12 @@
 import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
 import BtnState from "./components/BtnState";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CountEvent from "./components/countEvent";
 import Navbar from "./components/NavBar";
 import Cart from "./components/Cart";
 import ExpandableText from "./components/ExpandableText";
+import ProductList from "./components/ProductList";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -24,6 +25,7 @@ function App() {
     discount: 0,
     items: [{ id: 1, title: "mango", quantity: 1, price: 2.5 }],
   });
+  const [category, setCategory] = useState("");
   const [stAlert, setStAlert] = useState(false);
   const toggleAlert = () => {
     setStAlert(!stAlert);
@@ -99,6 +101,15 @@ function App() {
           aliquam dolore delectus.
         </ExpandableText>
       </div>
+      <select onChange={(event) => setCategory(event.target.value)}>
+        {items.map((item, index) => (
+          <option key={index} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
+
+      <ProductList category={category} />
     </>
   );
 }
