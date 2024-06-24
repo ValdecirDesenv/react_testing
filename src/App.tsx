@@ -27,6 +27,9 @@ function App() {
   });
   const [category, setCategory] = useState("");
   const [stAlert, setStAlert] = useState(false);
+  const connect = () => console.log("Connecting to the server...");
+  const disconnect = () => console.log("Disconnecting from the server...");
+
   const toggleAlert = () => {
     setStAlert(!stAlert);
   };
@@ -60,6 +63,13 @@ function App() {
   const handleSelectedItem = (item: string) => {
     console.log(`Selected item: ${item}`);
   };
+
+  useEffect(() => {
+    connect();
+    return () => {
+      disconnect();
+    };
+  }, []);
 
   return (
     <>
@@ -110,6 +120,7 @@ function App() {
       </select>
 
       <ProductList category={category} />
+      <p> </p>
     </>
   );
 }
