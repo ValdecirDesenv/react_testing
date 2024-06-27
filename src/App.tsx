@@ -7,6 +7,13 @@ import Navbar from "./components/NavBar";
 import Cart from "./components/Cart";
 import ExpandableText from "./components/ExpandableText";
 import ProductList from "./components/ProductList";
+import axios, { CanceledError } from "axios";
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -27,6 +34,8 @@ function App() {
   });
   const [category, setCategory] = useState("");
   const [stAlert, setStAlert] = useState(false);
+  const [users, setUsers] = useState<User[]>([]);
+
   const connect = () => console.log("Connecting to the server...");
   const disconnect = () => console.log("Disconnecting from the server...");
 
@@ -69,6 +78,24 @@ function App() {
     return () => {
       disconnect();
     };
+  }, []);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+        signal: controller.signal,
+      })
+      .then((response) => {
+        console.log(response.data[0].id);
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        if (error instanceof CanceledError) return;
+        setError(error.message);
+      });
+    return () => controller.abort();
   }, []);
 
   return (
@@ -120,7 +147,11 @@ function App() {
       </select>
 
       <ProductList category={category} />
-      <p> </p>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
     </>
   );
 }
